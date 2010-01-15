@@ -21,7 +21,6 @@ post '/songs' do
       xml.Gather(:action => '/play', :numDigits => 1, :method=>'GET') do        
         # list options        
         xml.Say ' You have dialed Dial-A-Song! You win! A song! Listen carefully and press 9 at any time to repeat this menu.', :voice=>'woman'
-        
         xml.Say ' Press 1 to play "Istanbul (Not Constantinople)"'
         xml.Say ' 2 for "Birdhouse in your soul"'
         xml.Say ' 3 for "I\'m Impressed"'
