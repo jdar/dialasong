@@ -63,5 +63,16 @@ get '/play' do
 end
 
 
-
+post "/flash" do
+    builder do |xml|
+       xml.instruct!
+       xml.Response do
+         xml.Dial do
+           xml.Conference "hacdc"
+           xml.Dial "3043763707"
+           xml.Dial "2022994405"
+         end
+       end
+     end
+end
 
