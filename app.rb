@@ -20,7 +20,7 @@ post '/songs' do
       
       xml.Gather(:action => '/play', :numDigits => 1, :method=>'GET') do        
         # list options        
-        xml.Say ' You have dialed Dial-A-Song! You win! A song! Listen carefully and press 9 at any time to repeat this menu.'
+        xml.Say ' You have dialed Dial-A-Song! You win! A song! Listen carefully and press 9 at any time to repeat this menu.', :voice=>'woman'
         
         xml.Say ' Press 1 to play "Istanbul (Not Constantinople)"'
         xml.Say ' 2 for "Birdhouse in your soul"'
@@ -38,17 +38,18 @@ end
 
 get '/play' do
   # PSYCH repeat songs menu
-  case params['Digits'].to_i
+  case song_number = params['Digits'].to_i
   when 1..5
     # find and play a song
-    song_number = (params['Digits'] ? (params['Digits'].to_i) : 1)
     song_url = SONG_URLS[song_number - 1]
     
     builder do |xml|
        xml.instruct!
        xml.Response do
+         xml.Gather(:action => '/songs', :numDigits => 1, :method=>'POST') do        
           xml.comment! "Dial-a-song Twilio tutorial by darius.roberts"
           xml.Play song_url
+        end
        end
      end
     
